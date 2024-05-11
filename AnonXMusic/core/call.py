@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timedelta
 from typing import Union
 import pytgcalls
-from pytgcalls import TelegramServerError
+from ntgcalls import TelegramServerError
 from pytgcalls import *
 from pytgcalls.types import ChatUpdate
 from pyrogram import Client, filters
