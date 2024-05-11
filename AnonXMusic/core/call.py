@@ -3,6 +3,7 @@ import os
 from datetime import datetime, timedelta
 from typing import Union
 import pytgcalls
+from pytgcalls import TelegramServerError
 from pytgcalls import *
 from pytgcalls.types import ChatUpdate
 from pyrogram import Client, filters
@@ -11,7 +12,6 @@ from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
-    TelegramServerError,
 )
 from pytgcalls.types import Update
 from pytgcalls.types.input_stream.quality import HighQualityAudio, MediumQualityVideo
