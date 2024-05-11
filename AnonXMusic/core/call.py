@@ -6,7 +6,8 @@ import pytgcalls
 from pytgcalls import filters
 from pytgcalls.types import ChatUpdate
 from pyrogram import Client
-from pytgcalls_new import MediaStream
+from pytgcalls import *
+from pytgcalls.types import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
