@@ -9,7 +9,7 @@ from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls, MediaStream
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
-    NoActiveGroupCall,
+    NoActiveCall,
     TelegramServerError,
 )
 from pytgcalls.types import Update
@@ -114,34 +114,34 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, chat_id)
         try:
             await _clear_(chat_id)
-            await assistant.leave_group_call(chat_id)
+            await assistant.leave_call(chat_id)
         except:
             pass
 
     async def stop_stream_force(self, chat_id: int):
         try:
             if config.STRING1:
-                await self.one.leave_group_call(chat_id)
+                await self.one.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING2:
-                await self.two.leave_group_call(chat_id)
+                await self.two.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING3:
-                await self.three.leave_group_call(chat_id)
+                await self.three.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING4:
-                await self.four.leave_group_call(chat_id)
+                await self.four.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING5:
-                await self.five.leave_group_call(chat_id)
+                await self.five.leave_call(chat_id)
         except:
             pass
         try:
@@ -194,13 +194,13 @@ class Call(PyTgCalls):
                 out,
                 audio_parameters=HighQualityAudio(),
                 video_parameters=MediumQualityVideo(),
-                additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
+                ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["MediaStream"] == "video"
             else AudioPiped(
                 out,
                 audio_parameters=HighQualityAudio(),
-                additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
+                ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
         )
         if str(db[chat_id][0]["file"]) == str(file_path):
@@ -228,7 +228,7 @@ class Call(PyTgCalls):
         await remove_active_video_chat(chat_id)
         await remove_active_chat(chat_id)
         try:
-            await assistant.leave_group_call(chat_id)
+            await assistant.leave_call(chat_id)
         except:
             pass
 
@@ -260,13 +260,13 @@ class Call(PyTgCalls):
                 file_path,
                 audio_parameters=HighQualityAudio(),
                 video_parameters=MediumQualityVideo(),
-                additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
+                ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
             if mode == "video"
             else AudioPiped(
                 file_path,
                 audio_parameters=HighQualityAudio(),
-                additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
+                ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
         )
         await assistant.play(chat_id, stream)
@@ -279,7 +279,7 @@ class Call(PyTgCalls):
             stream_type=MediaStream().pulse_stream,
         )
         await asyncio.sleep(0.2)
-        await assistant.leave_group_call(config.LOGGER_ID)
+        await assistant.leave_call(config.LOGGER_ID)
 
     async def join_call(
         self,
@@ -314,7 +314,7 @@ class Call(PyTgCalls):
                 stream,
                 stream_type=MediaStream().pulse_stream,
             )
-        except NoActiveGroupCall:
+        except NoActiveCall:
             raise AssistantErr(_["call_8"])
         except AlreadyJoinedError:
             raise AssistantErr(_["call_9"])
@@ -343,11 +343,11 @@ class Call(PyTgCalls):
             await auto_clean(popped)
             if not check:
                 await _clear_(chat_id)
-                return await client.leave_group_call(chat_id)
+                return await client.leave_call(chat_id)
         except:
             try:
                 await _clear_(chat_id)
-                return await client.leave_group_call(chat_id)
+                return await client.leave_call(chat_id)
             except:
                 return
         else:
