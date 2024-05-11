@@ -7,7 +7,6 @@ from pytgcalls import filters
 from pytgcalls.types import ChatUpdate
 from pyrogram import Client
 from pytgcalls import *
-from pytgcalls import AudioPiped, AudioVideoPiped
 from pytgcalls.types import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls.exceptions import (
