@@ -4,6 +4,19 @@ from datetime import datetime, timedelta
 from typing import Union
 import pytgcalls
 from pytgcalls import *
+from pytgcalls.types import ChatUpdate
+from pyrogram import Client, filters
+from pytgcalls import MediaStream
+from pyrogram.types import InlineKeyboardMarkup
+from pytgcalls.exceptions import (
+    AlreadyJoinedError,
+    NoActiveGroupCall,
+    TelegramServerError,
+)
+from pytgcalls.types import Update
+from pytgcalls.types.input_stream.quality import HighQualityAudio, MediumQualityVideo
+from pytgcalls.types.stream import StreamAudioEnded, AudioPiped, AudioVideoPiped
+
 import config
 from AnonXMusic import LOGGER, YouTube, app
 from AnonXMusic.misc import db
@@ -35,13 +48,6 @@ async def _clear_(chat_id):
     await remove_active_video_chat(chat_id)
     await remove_active_chat(chat_id)
 
-class Call:
-    def __init__(self, call_id, peer_id):
-        self.call_id = call_id
-        self.peer_id = peer_id
-
-    def __repr__(self):
-        return f"Call(call_id={self.call_id}, peer_id={self.peer_id})"
 
 class Call(PyTgCalls):
     def __init__(self):
