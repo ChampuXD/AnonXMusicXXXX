@@ -16,7 +16,7 @@ from pytgcalls.exceptions import (
 from pytgcalls.types import Update
 from pytgcalls.types.input_stream.quality import HighQualityAudio, MediumQualityVideo
 from pytgcalls.types.stream import StreamAudioEnded
-
+from pytgcalls.types import AudioPiped
 import config
 from AnonXMusic import LOGGER, YouTube, app
 from AnonXMusic.misc import db
