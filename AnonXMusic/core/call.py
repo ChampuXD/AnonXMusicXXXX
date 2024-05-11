@@ -2,12 +2,12 @@ import asyncio
 import os
 from datetime import datetime, timedelta
 from typing import Union
+import pytgcalls
 from pytgcalls import filters
 from pytgcalls.types import ChatUpdate
 from pyrogram import Client
-from pytgcalls import StreamType
+from pytgcalls import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
-from pytgcalls import PyTgCalls
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
@@ -197,7 +197,7 @@ class Call(PyTgCalls):
                 video_parameters=MediumQualityVideo(),
                 ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
-            if playing[0]["StreamType"] == "video"
+            if playing[0]["MediaStream"] == "video"
             else AudioPiped(
                 out,
                 audio_parameters=HighQualityAudio(),
@@ -277,7 +277,7 @@ class Call(PyTgCalls):
         await assistant.play(
             config.LOGGER_ID,
             AudioVideoPiped(link),
-            stream_type=StreamType().pulse_stream,
+            stream_type=MediaStream().pulse_stream,
         )
         await asyncio.sleep(0.2)
         await assistant.leave_call(config.LOGGER_ID)
@@ -313,7 +313,7 @@ class Call(PyTgCalls):
             await assistant.play(
                 chat_id,
                 stream,
-                stream_type=StreamType().pulse_stream,
+                stream_type=MediaStream().pulse_stream,
             )
         except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
@@ -358,7 +358,7 @@ class Call(PyTgCalls):
             title = (check[0]["title"]).title()
             user = check[0]["by"]
             original_chat_id = check[0]["chat_id"]
-            StreamType = check[0]["StreamType"]
+            MediaStream = check[0]["MediaStream"]
             videoid = check[0]["vidid"]
             db[chat_id][0]["played"] = 0
             exis = (check[0]).get("old_dur")
@@ -367,7 +367,7 @@ class Call(PyTgCalls):
                 db[chat_id][0]["seconds"] = check[0]["old_second"]
                 db[chat_id][0]["speed_path"] = None
                 db[chat_id][0]["speed"] = 1.0
-            video = True if str(StreamType) == "video" else False
+            video = True if str(MediaStream) == "video" else False
             if "live_" in queued:
                 n, link = await YouTube.video(videoid, True)
                 if n == 0:
@@ -415,7 +415,7 @@ class Call(PyTgCalls):
                         videoid,
                         mystic,
                         videoid=True,
-                        video=True if str(StreamType) == "video" else False,
+                        video=True if str(MediaStream) == "video" else False,
                     )
                 except:
                     return await mystic.edit_text(
@@ -462,7 +462,7 @@ class Call(PyTgCalls):
                         audio_parameters=HighQualityAudio(),
                         video_parameters=MediumQualityVideo(),
                     )
-                    if str(StreamType) == "video"
+                    if str(MediaStream) == "video"
                     else AudioPiped(videoid, audio_parameters=HighQualityAudio())
                 )
                 try:
@@ -505,7 +505,7 @@ class Call(PyTgCalls):
                     run = await app.send_photo(
                         chat_id=original_chat_id,
                         photo=config.TELEGRAM_AUDIO_URL
-                        if str(StreamType) == "audio"
+                        if str(MediaStream) == "audio"
                         else config.TELEGRAM_VIDEO_URL,
                         caption=_["stream_1"].format(
                             config.SUPPORT_CHAT, title[:23], check[0]["dur"], user

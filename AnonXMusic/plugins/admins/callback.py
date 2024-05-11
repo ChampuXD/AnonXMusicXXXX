@@ -201,9 +201,9 @@ async def del_back_playlist(client, CallbackQuery, _):
         title = (check[0]["title"]).title()
         user = check[0]["by"]
         duration = check[0]["dur"]
-        StreamType = check[0]["StreamType"]
+        MediaStream = check[0]["MediaStream"]
         videoid = check[0]["vidid"]
-        status = True if str(StreamType) == "video" else None
+        status = True if str(MediaStream) == "video" else None
         db[chat_id][0]["played"] = 0
         exis = (check[0]).get("old_dur")
         if exis:
@@ -310,7 +310,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 button = stream_markup(_, chat_id)
                 run = await CallbackQuery.message.reply_photo(
                     photo=TELEGRAM_AUDIO_URL
-                    if str(StreamType) == "audio"
+                    if str(MediaStream) == "audio"
                     else TELEGRAM_VIDEO_URL,
                     caption=_["stream_1"].format(
                         SUPPORT_CHAT, title[:23], duration, user
@@ -323,7 +323,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 button = stream_markup(_, chat_id)
                 run = await CallbackQuery.message.reply_photo(
                     photo=SOUNCLOUD_IMG_URL
-                    if str(StreamType) == "audio"
+                    if str(MediaStream) == "audio"
                     else TELEGRAM_VIDEO_URL,
                     caption=_["stream_1"].format(
                         SUPPORT_CHAT, title[:23], duration, user

@@ -92,9 +92,9 @@ async def skip(cli, message: Message, _, chat_id):
     queued = check[0]["file"]
     title = (check[0]["title"]).title()
     user = check[0]["by"]
-    StreamType = check[0]["StreamType"]
+    MediaStream = check[0]["MediaStream"]
     videoid = check[0]["vidid"]
-    status = True if str(StreamType) == "video" else None
+    status = True if str(MediaStream) == "video" else None
     db[chat_id][0]["played"] = 0
     exis = (check[0]).get("old_dur")
     if exis:
@@ -193,7 +193,7 @@ async def skip(cli, message: Message, _, chat_id):
             button = stream_markup(_, chat_id)
             run = await message.reply_photo(
                 photo=config.TELEGRAM_AUDIO_URL
-                if str(StreamType) == "audio"
+                if str(MediaStream) == "audio"
                 else config.TELEGRAM_VIDEO_URL,
                 caption=_["stream_1"].format(
                     config.SUPPORT_CHAT, title[:23], check[0]["dur"], user
@@ -206,7 +206,7 @@ async def skip(cli, message: Message, _, chat_id):
             button = stream_markup(_, chat_id)
             run = await message.reply_photo(
                 photo=config.SOUNCLOUD_IMG_URL
-                if str(StreamType) == "audio"
+                if str(MediaStream) == "audio"
                 else config.TELEGRAM_VIDEO_URL,
                 caption=_["stream_1"].format(
                     config.SUPPORT_CHAT, title[:23], check[0]["dur"], user

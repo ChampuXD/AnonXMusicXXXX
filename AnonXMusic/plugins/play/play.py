@@ -101,7 +101,7 @@ async def play_commnd(
                     chat_id,
                     user_name,
                     message.chat.id,
-                    StreamType="telegram",
+                    MediaStream="telegram",
                     forceplay=fplay,
                 )
             except Exception as e:
@@ -145,7 +145,7 @@ async def play_commnd(
                     user_name,
                     message.chat.id,
                     video=True,
-                    StreamType="telegram",
+                    MediaStream="telegram",
                     forceplay=fplay,
                 )
             except Exception as e:
@@ -165,7 +165,7 @@ async def play_commnd(
                     )
                 except:
                     return await mystic.edit_text(_["play_3"])
-                StreamType = "playlist"
+                MediaStream = "playlist"
                 plist_type = "yt"
                 if "&" in url:
                     plist_id = (url.split("=")[1]).split("&")[0]
@@ -178,7 +178,7 @@ async def play_commnd(
                     details, track_id = await YouTube.track(url)
                 except:
                     return await mystic.edit_text(_["play_3"])
-                StreamType = "youtube"
+                MediaStream = "youtube"
                 img = details["thumb"]
                 cap = _["play_10"].format(
                     details["title"],
@@ -195,7 +195,7 @@ async def play_commnd(
                     details, track_id = await Spotify.track(url)
                 except:
                     return await mystic.edit_text(_["play_3"])
-                StreamType = "youtube"
+                MediaStream = "youtube"
                 img = details["thumb"]
                 cap = _["play_10"].format(details["title"], details["duration_min"])
             elif "playlist" in url:
@@ -203,7 +203,7 @@ async def play_commnd(
                     details, plist_id = await Spotify.playlist(url)
                 except Exception:
                     return await mystic.edit_text(_["play_3"])
-                StreamType = "playlist"
+                MediaStream = "playlist"
                 plist_type = "spplay"
                 img = config.SPOTIFY_PLAYLIST_IMG_URL
                 cap = _["play_11"].format(app.mention, message.from_user.mention)
@@ -212,7 +212,7 @@ async def play_commnd(
                     details, plist_id = await Spotify.album(url)
                 except:
                     return await mystic.edit_text(_["play_3"])
-                StreamType = "playlist"
+                MediaStream = "playlist"
                 plist_type = "spalbum"
                 img = config.SPOTIFY_ALBUM_IMG_URL
                 cap = _["play_11"].format(app.mention, message.from_user.mention)
@@ -221,7 +221,7 @@ async def play_commnd(
                     details, plist_id = await Spotify.artist(url)
                 except:
                     return await mystic.edit_text(_["play_3"])
-                StreamType = "playlist"
+                MediaStream = "playlist"
                 plist_type = "spartist"
                 img = config.SPOTIFY_ARTIST_IMG_URL
                 cap = _["play_11"].format(message.from_user.first_name)
@@ -233,7 +233,7 @@ async def play_commnd(
                     details, track_id = await Apple.track(url)
                 except:
                     return await mystic.edit_text(_["play_3"])
-                StreamType = "youtube"
+                MediaStream = "youtube"
                 img = details["thumb"]
                 cap = _["play_10"].format(details["title"], details["duration_min"])
             elif "playlist" in url:
@@ -242,7 +242,7 @@ async def play_commnd(
                     details, plist_id = await Apple.playlist(url)
                 except:
                     return await mystic.edit_text(_["play_3"])
-                StreamType = "playlist"
+                MediaStream = "playlist"
                 plist_type = "apple"
                 cap = _["play_12"].format(app.mention, message.from_user.mention)
                 img = url
@@ -253,7 +253,7 @@ async def play_commnd(
                 details, track_id = await Resso.track(url)
             except:
                 return await mystic.edit_text(_["play_3"])
-            StreamType = "youtube"
+            MediaStream = "youtube"
             img = details["thumb"]
             cap = _["play_10"].format(details["title"], details["duration_min"])
         elif await SoundCloud.valid(url):
@@ -278,7 +278,7 @@ async def play_commnd(
                     chat_id,
                     user_name,
                     message.chat.id,
-                    StreamType="soundcloud",
+                    MediaStream="soundcloud",
                     forceplay=fplay,
                 )
             except Exception as e:
@@ -308,14 +308,14 @@ async def play_commnd(
                     message.from_user.first_name,
                     message.chat.id,
                     video=video,
-                    StreamType="index",
+                    MediaStream="index",
                     forceplay=fplay,
                 )
             except Exception as e:
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
                 return await mystic.edit_text(err)
-            return await play_logs(message, StreamType="M3u8 or Index Link")
+            return await play_logs(message, MediaStream="M3u8 or Index Link")
     else:
         if len(message.command) < 2:
             buttons = botplaylist_markup(_)
@@ -331,7 +331,7 @@ async def play_commnd(
             details, track_id = await YouTube.track(query)
         except:
             return await mystic.edit_text(_["play_3"])
-        StreamType = "youtube"
+        MediaStream = "youtube"
     if str(playmode) == "Direct":
         if not plist_type:
             if details["duration_min"]:
@@ -363,7 +363,7 @@ async def play_commnd(
                 user_name,
                 message.chat.id,
                 video=video,
-                StreamType=StreamType,
+                MediaStream=MediaStream,
                 spotify=spotify,
                 forceplay=fplay,
             )
@@ -372,7 +372,7 @@ async def play_commnd(
             err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
             return await mystic.edit_text(err)
         await mystic.delete()
-        return await play_logs(message, StreamType=StreamType)
+        return await play_logs(message, MediaStream=MediaStream)
     else:
         if plist_type:
             ran_hash = "".join(
@@ -393,7 +393,7 @@ async def play_commnd(
                 caption=cap,
                 reply_markup=InlineKeyboardMarkup(buttons),
             )
-            return await play_logs(message, StreamType=f"Playlist : {plist_type}")
+            return await play_logs(message, MediaStream=f"Playlist : {plist_type}")
         else:
             if slider:
                 buttons = slider_markup(
@@ -414,7 +414,7 @@ async def play_commnd(
                     ),
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
-                return await play_logs(message, StreamType=f"Searched on Youtube")
+                return await play_logs(message, MediaStream=f"Searched on Youtube")
             else:
                 buttons = track_markup(
                     _,
@@ -429,7 +429,7 @@ async def play_commnd(
                     caption=cap,
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
-                return await play_logs(message, StreamType=f"URL Searched Inline")
+                return await play_logs(message, MediaStream=f"URL Searched Inline")
 
 
 @app.on_callback_query(filters.regex("MusicStream") & ~BANNED_USERS)
@@ -491,7 +491,7 @@ async def play_music(client, CallbackQuery, _):
             user_name,
             CallbackQuery.message.chat.id,
             video,
-            StreamType="youtube",
+            MediaStream="youtube",
             forceplay=ffplay,
         )
     except Exception as e:
@@ -588,7 +588,7 @@ async def play_playlists_command(client, CallbackQuery, _):
             user_name,
             CallbackQuery.message.chat.id,
             video,
-            StreamType="playlist",
+            MediaStream="playlist",
             spotify=spotify,
             forceplay=ffplay,
         )

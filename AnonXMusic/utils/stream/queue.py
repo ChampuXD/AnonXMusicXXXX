@@ -26,7 +26,7 @@ async def put_queue(
     put = {
         "title": title,
         "dur": duration,
-        "StreamType": stream,
+        "MediaStream": stream,
         "by": user,
         "user_id": user_id,
         "chat_id": original_chat_id,
@@ -72,7 +72,7 @@ async def put_queue_index(
     put = {
         "title": title,
         "dur": duration,
-        "StreamType": stream,
+        "MediaStream": stream,
         "by": user,
         "chat_id": original_chat_id,
         "file": file,

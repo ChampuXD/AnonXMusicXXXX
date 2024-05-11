@@ -61,7 +61,7 @@ async def seek_comm(cli, message: Message, _, chat_id):
             file_path,
             seconds_to_min(to_seek),
             duration,
-            playing[0]["StreamType"],
+            playing[0]["MediaStream"],
         )
     except:
         return await mystic.edit_text(_["admin_26"], reply_markup=close_markup(_))

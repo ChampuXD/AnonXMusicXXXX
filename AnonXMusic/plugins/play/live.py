@@ -48,7 +48,7 @@ async def play_live_stream(client, CallbackQuery, _):
                 user_name,
                 CallbackQuery.message.chat.id,
                 video,
-                StreamType="live",
+                MediaStream="live",
                 forceplay=ffplay,
             )
         except Exception as e:

@@ -5,7 +5,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip
-RUN pip install py-tgcalls -U
+RUN pip install --upgrade pytgcalls
 
 COPY . /app/
 WORKDIR /app/
