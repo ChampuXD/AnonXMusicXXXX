@@ -3,20 +3,7 @@ import os
 from datetime import datetime, timedelta
 from typing import Union
 import pytgcalls
-from pytgcalls import filters
-from pytgcalls.types import ChatUpdate
-from pyrogram import Client
 from pytgcalls import *
-from pytgcalls.types import MediaStream
-from pyrogram.types import InlineKeyboardMarkup
-from pytgcalls.exceptions import (
-    AlreadyJoinedError,
-    NoActiveGroupCall,
-)
-from pytgcalls.types import Update
-from pytgcalls.types.stream.quality import HighQualityAudio, MediumQualityVideo
-from pytgcalls.types.stream import StreamAudioEnded
-from pytgcalls.types import AudioPiped
 import config
 from AnonXMusic import LOGGER, YouTube, app
 from AnonXMusic.misc import db
