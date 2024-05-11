@@ -7,6 +7,7 @@ from pytgcalls import filters
 from pytgcalls.types import ChatUpdate
 from pyrogram import Client
 from pytgcalls import MediaStream
+from pytgcalls_new import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
@@ -48,7 +49,7 @@ async def _clear_(chat_id):
     db[chat_id] = []
     await remove_active_video_chat(chat_id)
     await remove_active_chat(chat_id)
-    
+
 class Call:
     def __init__(self, call_id, peer_id):
         self.call_id = call_id
