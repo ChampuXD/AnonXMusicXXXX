@@ -5,7 +5,7 @@ from AnonXMusic.utils.database import is_on_off
 from config import LOGGER_ID
 
 
-async def play_logs(message, MediaStream):
+async def play_logs(message, StreamType):
     if await is_on_off(2):
         logger_text = f"""
 <b>{app.mention} ᴘʟᴀʏ ʟᴏɢ</b>
@@ -19,7 +19,7 @@ async def play_logs(message, MediaStream):
 <b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}
 
 <b>ǫᴜᴇʀʏ :</b> {message.text.split(None, 1)[1]}
-<b>sᴛʀᴇᴀᴍᴛʏᴘᴇ :</b> {MediaStream}"""
+<b>sᴛʀᴇᴀᴍᴛʏᴘᴇ :</b> {StreamType}"""
         if message.chat.id != LOGGER_ID:
             try:
                 await app.send_message(

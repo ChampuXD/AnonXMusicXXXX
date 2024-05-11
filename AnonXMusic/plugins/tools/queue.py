@@ -63,7 +63,7 @@ async def get_queue(client, message: Message, _):
     videoid = got[0]["vidid"]
     user = got[0]["by"]
     title = (got[0]["title"]).title()
-    typo = (got[0]["MediaStream"]).title()
+    typo = (got[0]["StreamType"]).title()
     DUR = get_duration(got)
     if "live_" in file:
         IMAGE = get_image(videoid)
@@ -203,7 +203,7 @@ async def queue_back(client, CallbackQuery: CallbackQuery, _):
     videoid = got[0]["vidid"]
     user = got[0]["by"]
     title = (got[0]["title"]).title()
-    typo = (got[0]["MediaStream"]).title()
+    typo = (got[0]["StreamType"]).title()
     DUR = get_duration(got)
     if "live_" in file:
         IMAGE = get_image(videoid)

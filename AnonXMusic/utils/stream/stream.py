@@ -25,7 +25,7 @@ async def stream(
     user_name,
     original_chat_id,
     video: Union[bool, str] = None,
-    MediaStream: Union[bool, str] = None,
+    StreamType: Union[bool, str] = None,
     spotify: Union[bool, str] = None,
     forceplay: Union[bool, str] = None,
 ):
@@ -33,7 +33,7 @@ async def stream(
         return
     if forceplay:
         await Anony.force_stop_stream(chat_id)
-    if MediaStream == "playlist":
+    if StreamType == "playlist":
         msg = f"{_['play_19']}\n\n"
         count = 0
         for search in result:
@@ -130,7 +130,7 @@ async def stream(
                 caption=_["play_21"].format(position, link),
                 reply_markup=upl,
             )
-    elif MediaStream == "youtube":
+    elif StreamType == "youtube":
         link = result["link"]
         vidid = result["vidid"]
         title = (result["title"]).title()
@@ -199,7 +199,7 @@ async def stream(
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "stream"
-    elif MediaStream == "soundcloud":
+    elif StreamType == "soundcloud":
         file_path = result["filepath"]
         title = result["title"]
         duration_min = result["duration_min"]
@@ -211,7 +211,7 @@ async def stream(
                 title,
                 duration_min,
                 user_name,
-                MediaStream,
+                StreamType,
                 user_id,
                 "audio",
             )
@@ -233,7 +233,7 @@ async def stream(
                 title,
                 duration_min,
                 user_name,
-                MediaStream,
+                StreamType,
                 user_id,
                 "audio",
                 forceplay=forceplay,
@@ -249,7 +249,7 @@ async def stream(
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
-    elif MediaStream == "telegram":
+    elif StreamType == "telegram":
         file_path = result["path"]
         link = result["link"]
         title = (result["title"]).title()
@@ -263,7 +263,7 @@ async def stream(
                 title,
                 duration_min,
                 user_name,
-                MediaStream,
+                StreamType,
                 user_id,
                 "video" if video else "audio",
             )
@@ -285,7 +285,7 @@ async def stream(
                 title,
                 duration_min,
                 user_name,
-                MediaStream,
+                StreamType,
                 user_id,
                 "video" if video else "audio",
                 forceplay=forceplay,
@@ -301,7 +301,7 @@ async def stream(
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
-    elif MediaStream == "live":
+    elif StreamType == "live":
         link = result["link"]
         vidid = result["vidid"]
         title = (result["title"]).title()
@@ -367,7 +367,7 @@ async def stream(
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
-    elif MediaStream == "index":
+    elif StreamType == "index":
         link = result
         title = "ɪɴᴅᴇx ᴏʀ ᴍ3ᴜ8 ʟɪɴᴋ"
         duration_min = "00:00"
