@@ -48,7 +48,14 @@ async def _clear_(chat_id):
     db[chat_id] = []
     await remove_active_video_chat(chat_id)
     await remove_active_chat(chat_id)
+    
+class Call:
+    def __init__(self, call_id, peer_id):
+        self.call_id = call_id
+        self.peer_id = peer_id
 
+    def __repr__(self):
+        return f"Call(call_id={self.call_id}, peer_id={self.peer_id})"
 
 class Call(PyTgCalls):
     def __init__(self):
@@ -600,4 +607,4 @@ class Call(PyTgCalls):
             await self.play(client, update.chat_id)
 
 
-Anony = Call()
+Champu = Call()

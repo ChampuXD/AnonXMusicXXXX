@@ -5,7 +5,7 @@ from pyrogram.enums import ChatType
 
 import config
 from AnonXMusic import app
-from AnonXMusic.core.call import Anony, autoend
+from AnonXMusic.core.call import Champu, autoend
 from AnonXMusic.utils.database import get_client, is_active_chat, is_autoend
 
 
@@ -59,7 +59,7 @@ async def auto_end():
                     continue
                 autoend[chat_id] = {}
                 try:
-                    await Anony.stop_stream(chat_id)
+                    await Champu.stop_stream(chat_id)
                 except:
                     continue
                 try:
