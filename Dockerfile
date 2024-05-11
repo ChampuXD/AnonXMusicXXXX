@@ -4,9 +4,8 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends ffmpeg \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-RUN pip install --upgrade pip
-RUN pip install --upgrade pytgcalls
-
+RUN pip install --upgrade pip3
+RUN pip3 install py-tgcalls -U
 COPY . /app/
 WORKDIR /app/
 RUN pip3 install --no-cache-dir -U -r requirements.txt
