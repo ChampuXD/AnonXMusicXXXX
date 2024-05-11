@@ -5,8 +5,9 @@ from typing import Union
 from pytgcalls import filters
 from pytgcalls.types import ChatUpdate
 from pyrogram import Client
+from pytgcalls import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
-from pytgcalls import PyTgCalls, MediaStream
+from pytgcalls import PyTgCalls
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
