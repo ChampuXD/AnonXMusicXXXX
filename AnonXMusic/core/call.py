@@ -7,6 +7,7 @@ from pytgcalls import filters
 from pytgcalls.types import ChatUpdate
 from pyrogram import Client
 from pytgcalls import *
+from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pytgcalls.types import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls.exceptions import (
@@ -14,7 +15,6 @@ from pytgcalls.exceptions import (
     NoActiveGroupCall,
 )
 from pytgcalls.types import Update
-from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.types.input_stream.quality import HighQualityAudio, MediumQualityVideo
 from pytgcalls.types.stream import StreamAudioEnded
 
