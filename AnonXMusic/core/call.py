@@ -9,7 +9,7 @@ from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls, MediaStream
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
-    NoActiveCall,
+    NoActiveGroupCall,
     TelegramServerError,
 )
 from pytgcalls.types import Update
@@ -314,7 +314,7 @@ class Call(PyTgCalls):
                 stream,
                 stream_type=MediaStream().pulse_stream,
             )
-        except NoActiveCall:
+        except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
         except AlreadyJoinedError:
             raise AssistantErr(_["call_9"])
