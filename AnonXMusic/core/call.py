@@ -5,7 +5,7 @@ from typing import Union
 from pytgcalls import PyTgCalls, filters
 from ntgcalls import TelegramServerError
 from pytgcalls import *
-from pytgcalls.types.chats import chat_update
+from pytgcalls.types.chats.chat_update import ChatUpdate
 from pyrogram import Client
 from pytgcalls.types.stream import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
@@ -570,16 +570,16 @@ class Call(PyTgCalls):
             await self.five.start()
 
     async def decorators(self):
-        @self.one.on_update(chat_update.Status.CLOSED_VOICE_CHAT)
-        @self.two.on_update(chat_update.Status.CLOSED_VOICE_CHAT)
-        @self.three.on_update(chat_update.Status.CLOSED_VOICE_CHAT)
-        @self.four.on_update(chat_update.Status.CLOSED_VOICE_CHAT)
-        @self.five.on_update(chat_update.Status.CLOSED_VOICE_CHAT)
-        @self.one.on_left()
-        @self.two.on_left()
-        @self.three.on_left()
-        @self.four.on_left()
-        @self.five.on_left()
+        @self.one.ChatUpdate.Status.CLOSED_VOICE_CHAT()
+        @self.two.ChatUpdate.Status.CLOSED_VOICE_CHAT()
+        @self.three.ChatUpdate.Status.CLOSED_VOICE_CHAT()
+        @self.four.ChatUpdate.Status.CLOSED_VOICE_CHAT()
+        @self.five.ChatUpdate.Status.CLOSED_VOICE_CHAT()
+        @self.one.ChatUpdate.Status()
+        @self.two.ChatUpdate.Status()
+        @self.three.ChatUpdate.Status()
+        @self.four.ChatUpdate.Status()
+        @self.five.ChatUpdate.Status()
         async def stream_services_handler(_, chat_id: int):
             await self.stop_stream(chat_id)
 
