@@ -15,7 +15,7 @@ from pytgcalls.exceptions import (
 )
 from pytgcalls.types import Update
 from pytgcalls.types.stream  import audio_quality, video_quality
-from pytgcalls.types.stream import StreamAudioEnded, AudioPiped, AudioVideoPiped
+from pytgcalls.types.stream import StreamAudioEnded,
 
 import config
 from AnonXMusic import LOGGER, YouTube, app
@@ -190,14 +190,14 @@ class Call(PyTgCalls):
         played, con_seconds = speed_converter(playing[0]["played"], speed)
         duration = seconds_to_min(dur)
         stream = (
-            AudioVideoPiped(
+            MediaStream(
                 out,
                 audio_parameters=audio_quality(),
                 video_parameters=video_quality(),
                 ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["MediaStream"] == "video"
-            else AudioPiped(
+            else MediaStream(
                 out,
                 audio_parameters=audio_quality(),
                 ffmpeg_parameters=f"-ss {played} -to {duration}",
@@ -241,13 +241,13 @@ class Call(PyTgCalls):
     ):
         assistant = await group_assistant(self, chat_id)
         if video:
-            stream = AudioVideoPiped(
+            stream = MediaStream(
                 link,
                 audio_parameters=audio_quality(),
                 video_parameters=video_quality(),
             )
         else:
-            stream = AudioPiped(link, audio_parameters=audio_quality())
+            stream = MediaStream(link, audio_parameters=audio_quality())
         await assistant.play(
             chat_id,
             stream,
@@ -256,14 +256,14 @@ class Call(PyTgCalls):
     async def seek_stream(self, chat_id, file_path, to_seek, duration, mode):
         assistant = await group_assistant(self, chat_id)
         stream = (
-            AudioVideoPiped(
+            MediaStream(
                 file_path,
                 audio_parameters=audio_quality(),
                 video_parameters=video_quality(),
                 ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
             if mode == "video"
-            else AudioPiped(
+            else MediaStream(
                 file_path,
                 audio_parameters=audio_quality(),
                 ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
@@ -275,7 +275,7 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, config.LOGGER_ID)
         await assistant.play(
             config.LOGGER_ID,
-            AudioVideoPiped(link),
+            MediaStream(link),
             stream_type=MediaStream().pulse_stream,
         )
         await asyncio.sleep(0.2)
@@ -293,20 +293,20 @@ class Call(PyTgCalls):
         language = await get_lang(chat_id)
         _ = get_string(language)
         if video:
-            stream = AudioVideoPiped(
+            stream = MediaStream(
                 link,
                 audio_parameters=audio_quality(),
                 video_parameters=video_quality(),
             )
         else:
             stream = (
-                AudioVideoPiped(
+                MediaStream(
                     link,
                     audio_parameters=audio_quality(),
                     video_parameters=video_quality(),
                 )
                 if video
-                else AudioPiped(link, audio_parameters=audio_quality())
+                else MediaStream(link, audio_parameters=audio_quality())
             )
         try:
             await assistant.play(
@@ -375,13 +375,13 @@ class Call(PyTgCalls):
                         text=_["call_6"],
                     )
                 if video:
-                    stream = AudioVideoPiped(
+                    stream = MediaStream(
                         link,
                         audio_parameters=audio_quality(),
                         video_parameters=video_quality(),
                     )
                 else:
-                    stream = AudioPiped(
+                    stream = MediaStream(
                         link,
                         audio_parameters=audio_quality(),
                     )
@@ -421,13 +421,13 @@ class Call(PyTgCalls):
                         _["call_6"], disable_web_page_preview=True
                     )
                 if video:
-                    stream = AudioVideoPiped(
+                    stream = MediaStream(
                         file_path,
                         audio_parameters=audio_quality(),
                         video_parameters=video_quality(),
                     )
                 else:
-                    stream = AudioPiped(
+                    stream = MediaStream(
                         file_path,
                         audio_parameters=audio_quality(),
                     )
@@ -456,13 +456,13 @@ class Call(PyTgCalls):
                 db[chat_id][0]["markup"] = "stream"
             elif "index_" in queued:
                 stream = (
-                    AudioVideoPiped(
+                    MediaStream(
                         videoid,
                         audio_parameters=audio_quality(),
                         video_parameters=video_quality(),
                     )
                     if str(MediaStream) == "video"
-                    else AudioPiped(videoid, audio_parameters=audio_quality())
+                    else MediaStream(videoid, audio_parameters=audio_quality())
                 )
                 try:
                     await client.play(chat_id, stream)
@@ -482,13 +482,13 @@ class Call(PyTgCalls):
                 db[chat_id][0]["markup"] = "tg"
             else:
                 if video:
-                    stream = AudioVideoPiped(
+                    stream = MediaStream(
                         queued,
                         audio_parameters=audio_quality(),
                         video_parameters=video_quality(),
                     )
                 else:
-                    stream = AudioPiped(
+                    stream = MediaStream(
                         queued,
                         audio_parameters=audio_quality(),
                     )
