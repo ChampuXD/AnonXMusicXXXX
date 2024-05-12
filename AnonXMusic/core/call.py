@@ -5,7 +5,7 @@ from typing import Union
 from pytgcalls import PyTgCalls
 from ntgcalls import TelegramServerError
 from pytgcalls import *
-from pytgcalls.types.chats import ChatUpdate
+from pytgcalls.types.chats import chat_update
 from pyrogram import Client, filters
 from pytgcalls.types.stream import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
@@ -570,11 +570,11 @@ class Call(PyTgCalls):
             await self.five.start()
 
     async def decorators(self):
-        @self.one.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
-        @self.two.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
-        @self.three.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
-        @self.four.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
-        @self.five.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.one.on_update(filters.chat_update(chat_update.Status.CLOSED_VOICE_CHAT))
+        @self.two.on_update(filters.chat_update(chat_update.Status.CLOSED_VOICE_CHAT))
+        @self.three.on_update(filters.chat_update(chat_update.Status.CLOSED_VOICE_CHAT))
+        @self.four.on_update(filters.chat_update(chat_update.Status.CLOSED_VOICE_CHAT))
+        @self.five.on_update(filters.chat_update(chat_update.Status.CLOSED_VOICE_CHAT))
         @self.one.on_left()
         @self.two.on_left()
         @self.three.on_left()
