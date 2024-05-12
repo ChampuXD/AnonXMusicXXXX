@@ -2,7 +2,7 @@ import asyncio
 import os
 from datetime import datetime, timedelta
 from typing import Union
-import pytgcalls
+from pytgcalls import PyTgCalls
 from ntgcalls import TelegramServerError
 from pytgcalls import *
 from pytgcalls.types import ChatUpdate
@@ -41,7 +41,7 @@ from strings import get_string
 
 autoend = {}
 counter = {}
-
+ 
 
 async def _clear_(chat_id):
     db[chat_id] = []
