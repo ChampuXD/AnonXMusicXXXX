@@ -5,7 +5,7 @@ from typing import Union
 from pytgcalls import PyTgCalls
 from ntgcalls import TelegramServerError
 from pytgcalls import *
-from pytgcalls.types import ChatUpdate
+from pytgcalls.types.chats import ChatUpdate
 from pyrogram import Client, filters
 from pytgcalls.types.stream import MediaStream
 from pyrogram.types import InlineKeyboardMarkup
