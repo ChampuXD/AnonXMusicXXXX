@@ -1,5 +1,5 @@
 import asyncio
-
+from AnonXMusic import LOGGER 
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import (
     ChatAdminRequired,
@@ -67,6 +67,7 @@ def PlayWrapper(command):
             else None
         )
         url = await YouTube.url(message)
+        LOGGER(__name__).info("UTUBE SEARCH FOUND")
         if audio_telegram is None and video_telegram is None and url is None:
             if len(message.command) < 2:
                 if "stream" in message.command:
