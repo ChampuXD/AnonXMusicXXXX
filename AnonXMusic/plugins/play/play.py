@@ -1,6 +1,6 @@
 import random
 import string
-
+from AnonXMusic import LOGGER 
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
@@ -155,6 +155,7 @@ async def play_commnd(
             return await mystic.delete()
         return
     elif url:
+        LOGGER(__name__).info("YT SEARCH MODE ")
         if await YouTube.exists(url):
             if "playlist" in url:
                 try:
@@ -163,7 +164,8 @@ async def play_commnd(
                         config.PLAYLIST_FETCH_LIMIT,
                         message.from_user.id,
                     )
-                except:
+                except Exception as e:
+                    LOGGER(__name__).info(f"maybe this is a error: {e}")
                     return await mystic.edit_text(_["play_3"])
                 MediaStream = "playlist"
                 plist_type = "yt"
@@ -176,7 +178,8 @@ async def play_commnd(
             else:
                 try:
                     details, track_id = await YouTube.track(url)
-                except:
+                except Exception as e:
+                    LOGGER(__name__).info(f"yaha bhi ho sakta hai: {e}")
                     return await mystic.edit_text(_["play_3"])
                 MediaStream = "youtube"
                 img = details["thumb"]
